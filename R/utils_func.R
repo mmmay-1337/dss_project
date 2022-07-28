@@ -18,6 +18,7 @@ library(mlr3tuning)
 library(mlr3viz)
 # library(lgr) # logging
 library(mlr3filters)
+library(performanceEstimation)
 
 # reads in SQL files
 .utils_read_sql <- function(con, file, qry_config = NULL, echo = FALSE) {# need to specify a qry_config example
@@ -127,4 +128,20 @@ library(mlr3filters)
     gsub("//", "/", .)
 }
 
-# this is the end of the line
+# SMOTE function
+.smote_func <- function(ds, class, perc.over = 1, perc.under = 1) {
+
+  # read in the dataframe and convert into a tidy table
+  smote_tbl <- ds %>% as_tibble %>%
+   # clean any characters
+   mutate_if( ~ is.character(.), ~ as.factor(.)) %>%
+   mutate_if( ~ is.logical(.), ~ as.factor(.)) %>%
+   mutate(class = as.factor(class))
+
+  # build the smote dataset
+  out = smote(class ~ ., data = smote_tbl, perc.over = perc.over, perc.under = perc.under)
+
+  return(out)
+
+}
+
