@@ -81,6 +81,7 @@ library(mlr3filters)
   
   # to reference the right table name, replace spaces or punctuations with underscores
   z <- names(table) %>% gsub("[[:punct:]]|[[:space:]]", "_", .)
+}
 
 # step logger
 .utils_log_step <- function(x, ...) {
