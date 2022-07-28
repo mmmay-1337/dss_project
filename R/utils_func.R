@@ -124,12 +124,3 @@ library(mlr3filters)
   paste(list(x, ...), collapse = "/") %>% 
     gsub("//", "/", .)
 }
-
-# non-working function yet
-.utils_rm_objs <- function(default = TRUE) {
-  if (default) {
-    rm(list = grep("^[zvr]_|^ts_", ls(), value = TRUE), envir = globalenv())
-  }
-}
-
- 
